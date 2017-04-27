@@ -119,6 +119,7 @@
     </property>
     <addaction name="m_createWalletAction"/>
     <addaction name="m_openWalletAction"/>
+    <addaction name="m_importKeyAction"/>
     <addaction name="m_backupWalletAction"/>
     <addaction name="m_exitAction"/>
    </widget>
@@ -336,6 +337,7 @@
     <string>Close to tray</string>
    </property>
   </action>
+
  </widget>
  <customwidgets>
   <customwidget>
@@ -624,5 +626,6 @@
   <slot>setStartOnLogin(bool)</slot>
   <slot>setMinimizeToTray(bool)</slot>
   <slot>setCloseToTray(bool)</slot>
+  <slot>importKey()</slot>
  </slots>
 </ui>

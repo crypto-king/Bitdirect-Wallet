@@ -1,33 +1,29 @@
-**1. Clone wallet sources**
+Compile instructions for Windows, Linux, Mac.
 
-```
-git clone https://github.com/cryptonotefoundation/cryptonotewallet.git
-```
+Need qt5, boost, cmake.
 
-**2. Modify `CryptoNoteWallet.cmake`**
- 
-```
-set(CN_PROJECT_NAME "furiouscoin")
-set(CN_CURRENCY_DISPLAY_NAME "FuriousCoin")
-set(CN_CURRENCY_TICKER "XFC")
-```
+Window users can use Visual Studios.
 
-**3. Set symbolic link to coin sources at the same level as `src`. For example:**
 
+------------------------------------------
+Compile instructions for Linux!
 ```
-ln -s ../cryptonote cryptonote
+sudo add-apt-repository universe
+
+sudo apt-get update
+
+sudo apt-get install build-essential git cmake libboost-all-dev
+
+sudo apt-get install qtbase5-dev
 ```
-
-Alternative way is to create git submodule:
-
+1. Clone wallet sources
 ```
-git submodule add https://github.com/cryptonotefoundation/cryptonote.git cryptonote
+git clone https://github.com/crypto-king/Bitdirect-Wallet.git
+
+cd Bitdirect-Wallet
 ```
-
-Replace URL with git remote repository of your coin.
-
-**4. Build**
-
+2. Build
 ```
+cp cryptonote/src/Platform/Posix/System/* cryptonote/src/System
 mkdir build && cd build && cmake .. && make
 ```

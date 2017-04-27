@@ -16,6 +16,7 @@
 #include "ChangePasswordDialog.h"
 #include "CurrencyAdapter.h"
 #include "ExitWidget.h"
+#include "ImportKeyDialog.h"
 #include "MainWindow.h"
 #include "NewPasswordDialog.h"
 #include "NodeAdapter.h"
@@ -64,6 +65,9 @@ void MainWindow::connectToSignals() {
   connect(&WalletAdapter::instance(), &WalletAdapter::walletStateChangedSignal, this, &MainWindow::setStatusBarText);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletInitCompletedSignal, this, &MainWindow::walletOpened);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletCloseCompletedSignal, this, &MainWindow::walletClosed);
+  connect(&WalletAdapter::instance(), &WalletAdapter::walletTransactionCreatedSignal, this, [this]() {
+    QApplication::alert(this);
+  });
   connect(&NodeAdapter::instance(), &NodeAdapter::peerCountUpdatedSignal, this, &MainWindow::peerCountUpdated, Qt::QueuedConnection);
   connect(m_ui->m_exitAction, &QAction::triggered, qApp, &QApplication::quit);
 }

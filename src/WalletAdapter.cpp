@@ -112,6 +112,14 @@ void WalletAdapter::open(const QString& _password) {
   }
 }
 
+void WalletAdapter::createWithKeys(const CryptoNote::AccountKeys& _keys) {
+    m_wallet = NodeAdapter::instance().createWallet();
+    m_wallet->addObserver(this);
+    Settings::instance().setEncrypted(false);
+    Q_EMIT walletStateChangedSignal(tr("Importing keys"));
+    m_wallet->initWithKeys(_keys, "");
+}
+
 bool WalletAdapter::isOpen() const {
   return m_wallet != nullptr;
 }
@@ -228,6 +236,17 @@ bool WalletAdapter::getTransfer(CryptoNote::TransferId& _id, CryptoNote::WalletL
   return false;
 }
 
+
+bool WalletAdapter::getAccountKeys(CryptoNote::AccountKeys& _keys) {
+  Q_CHECK_PTR(m_wallet);
+  try {
+    m_wallet->getAccountKeys(_keys);
+    return true;
+  } catch (std::system_error&) {
+  }
+
+  return false;
+}
 void WalletAdapter::sendTransaction(const QVector<CryptoNote::WalletLegacyTransfer>& _transfers, quint64 _fee, const QString& _paymentId, quint64 _mixin) {
   Q_CHECK_PTR(m_wallet);
   try {
